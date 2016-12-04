@@ -27,6 +27,7 @@ GPIO.setup(PIN_BIN2, GPIO.OUT)
 GPIO.setup(PIN_STBY, GPIO.OUT)
 
 pwm_a = GPIO.PWM(PIN_PWMA, 50)
+pwm_b = GPIO.PWM(PIN_PWMB, 50)
 
 try:
   pwm_a.start(50)
