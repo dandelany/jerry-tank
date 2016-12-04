@@ -39,9 +39,18 @@ try:
 
   GPIO.output(PIN_AIN1, 0);
   GPIO.output(PIN_BIN1, 0);
+  sleep(0.5)
+
+  GPIO.output(PIN_AIN2, 1);
+  GPIO.output(PIN_BIN2, 1);
+  sleep(0.5)
+
+  GPIO.output(PIN_AIN2, 0);
+  GPIO.output(PIN_BIN2, 0);
+  sleep(0.5)
+
   GPIO.output(PIN_STBY, 0);
   pwm_a.stop()
-  
 
 except KeyboardInterrupt:
   print "exiting..."
