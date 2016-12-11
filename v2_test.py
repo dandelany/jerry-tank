@@ -77,3 +77,4 @@ def main():
     pwm_b.stop()
     GPIO.cleanup()
 
+main()
