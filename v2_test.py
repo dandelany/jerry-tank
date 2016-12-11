@@ -36,7 +36,7 @@ def drive_right_spin(pins):
   GPIO.output(pins['a_reverse'], 1);
 
 def setup_pins(out_pins, pwm_pin_keys=[], pwm_freq=100):
-  for key, pin in out_pins:
+  for key, pin in out_pins.iteritems():
     GPIO.setup(pin, GPIO.OUT)
   pwms = []
   for key in pwm_pin_keys:
