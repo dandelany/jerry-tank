@@ -48,7 +48,7 @@ def main():
   try:
     pwm_a.start(50)
     pwm_b.start(50)
-    GPIO.output(PIN_STBY, 1)
+    GPIO.output(OUT_PINS['enable'], 1)
 
     drive_forward(OUT_PINS)
     sleep(0.5)
@@ -67,7 +67,7 @@ def main():
     drive_stop(OUT_PINS)
     sleep(0.5)
 
-    GPIO.output(PIN_STBY, 0);
+    GPIO.output(OUT_PINS['enable'], 0);
     pwm_a.stop()
 
   except KeyboardInterrupt:
