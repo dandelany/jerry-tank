@@ -38,12 +38,14 @@ def drive_right_spin(pins):
 def setup_pins(out_pins, pwm_pin_keys=[], pwm_freq=100):
   for key, pin in out_pins:
     GPIO.setup(pin, GPIO.OUT)
+  pwms = []
   for key in pwm_pin_keys:
-    GPIO.PWM(out_pins[key], pwm_freq)
+    pwms.append(GPIO.PWM(out_pins[key], pwm_freq))
+  return pwms
 
 def main():
+  [pwm_a, pwm_b] = setup_pins(OUT_PINS, ['a_speed', 'b_speed'], 100);
   try:
-    setup_pins(OUT_PINS, ['a_speed', 'b_speed'], 100);
     pwm_a.start(50)
     pwm_b.start(50)
     GPIO.output(PIN_STBY, 1)
