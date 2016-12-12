@@ -56,17 +56,17 @@ raspi.init(function() {
   });
   const pwms = {};
   Object.keys(pwmPins).forEach(key => {
-    pwms[key] = new SoftPWM(`GPIO${pwmPins[key]}`);
+    pwms[key] = new SoftPWM({pin: `GPIO${pwmPins[key]}`, range: 100});
   });
 
-  pwms.aSpeed.write(60);
-  pwms.bSpeed.write(60);
+  pwms.aSpeed.write(70);
+  pwms.bSpeed.write(70);
 
-  outputs.enable.write(GPIO.HIGH);
+  outputs.enable.write(gpio.HIGH);
 
   driveForward(outputs);
   setTimeout(() => {
     driveStop(outputs);
-    outputs.enable.write(GPIO.LOW);
+    outputs.enable.write(gpio.LOW);
   }, 1000);
 });
