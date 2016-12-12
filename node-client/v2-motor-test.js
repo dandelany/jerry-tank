@@ -62,8 +62,11 @@ raspi.init(function() {
   pwms.aSpeed.write(60);
   pwms.bSpeed.write(60);
 
+  outputs.enable.write(GPIO.HIGH);
+
   driveForward(outputs);
   setTimeout(() => {
     driveStop(outputs);
+    outputs.enable.write(GPIO.LOW);
   }, 1000);
 });
