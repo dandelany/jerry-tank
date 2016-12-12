@@ -25,6 +25,7 @@ function main() {
   const {outputs, pwms} = initGPIO(outPins, pwmPins);
   pwms.aSpeed.write(70);
   pwms.bSpeed.write(70);
+  outputs.enable.write(gpio.HIGH);
 
   const socket = socketCluster.connect({hostname: 'Dans-MacBook-Pro-2.local', port: '9494'});
   socket.on('connect', () => console.log('connected!'));
