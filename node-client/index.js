@@ -1,34 +1,49 @@
-var raspi = require('raspi');
-var gpio = require('raspi-gpio');
-var SoftPWM = require('raspi-soft-pwm').SoftPWM;
-
-const outPins = {
-  'enable': 14, // STBY
-  'aForward': 15, // AIN1
-  'aReverse': 18, // AIN2
-  'bForward': 4, // BIN1 (backwards?)
-  'bReverse': 3 // BIN2
-};
-
-const pwmPins = {
-  'aSpeed': 17, // PWMA
-  'bSpeed': 2, // PWMB
-};
-
-
+const raspi = require('raspi');
+const gpio = require('raspi-gpio');
+const SoftPWM = require('raspi-soft-pwm').SoftPWM;
 const socketCluster = require('socketcluster-client');
 
-const socket = socketCluster.connect({hostname: 'Dans-MacBook-Pro-2.local', port: '9494'});
+const {outPins, pwmPins} = require('./pins');
 
-socket.on('connect', (data, res) => {
-  console.log('connected', data, res);
-});
+const drive = require('./drive');
 
-socket.emit('sampleClientEvent', {message: 'Event from Jerry Tank!'});
 
-const driveChannel = socket.subscribe('drive');
+function initGPIO(outPins, pwmPins) {
+  const outputs = {};
+  Object.keys(outPins).forEach(key => {
+    outputs[key] = new gpio.DigitalOutput(`GPIO${outPins[key]}`);
+  });
+  const pwms = {};
+  Object.keys(pwmPins).forEach(key => {
+    pwms[key] = new SoftPWM({pin: `GPIO${pwmPins[key]}`, range: 100});
+  });
+  return {outputs, pwms};
+}
 
-driveChannel.watch((data) => {
-  console.log('drive channel action!');
-  console.log(data);
-});
+
+function main() {
+  const {outputs, pwms} = initGPIO(outPins, pwmPins);
+  pwms.aSpeed.write(70);
+  pwms.bSpeed.write(70);
+
+  const socket = socketCluster.connect({hostname: 'Dans-MacBook-Pro-2.local', port: '9494'});
+  socket.on('connect', () => console.log('connected!'));
+
+  const driveChannel = socket.subscribe('drive');
+
+  driveChannel.watch((data) => {
+    console.log('drive channel action!');
+    console.log(data);
+    if (data && data.msg && drive[data.msg]) {
+      drive[data.msg](outputs);
+    }
+  });
+}
+
+raspi.init(main);
+
+
+
+
+
+
