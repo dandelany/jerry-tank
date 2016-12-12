@@ -1,3 +1,5 @@
+const gpio = require('raspi-gpio');
+
 module.exports = {
   stop: (outputs) => {
     outputs.aForward.write(gpio.LOW);
