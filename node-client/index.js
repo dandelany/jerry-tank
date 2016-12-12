@@ -32,8 +32,7 @@ function main() {
   const driveChannel = socket.subscribe('drive');
 
   driveChannel.watch((data) => {
-    console.log('drive channel action!');
-    console.log(data);
+    console.log(data.msg);
     if (data && data.msg && drive[data.msg]) {
       drive[data.msg](outputs);
     }
