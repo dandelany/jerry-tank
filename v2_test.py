@@ -5,12 +5,12 @@ GPIO.setmode(GPIO.BCM)
 
 OUT_PINS = {
   'enable': 14, # STBY
-  'a_speed': 17, # PWMA
-  'a_forward': 15, # AIN1
-  'a_reverse': 18, # AIN2
-  'b_speed': 2, # PWMB
-  'b_forward': 3, # BIN2 (backwards?)
-  'b_reverse': 4 # BIN1
+  'a_speed': 2, # PWMA
+  'a_forward': 4, # AIN1
+  'a_reverse': 3, # AIN2
+  'b_speed': 18, # PWMB
+  'b_forward': 15, # BIN1
+  'b_reverse': 17 # BIN1
 }
 
 def drive_stop(pins):
