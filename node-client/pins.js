@@ -1,14 +1,14 @@
 module.exports = {
   outPins: {
     'enable': 14, // STBY
-    'aForward': 15, // AIN1
-    'aReverse': 18, // AIN2
-    'bForward': 4, // BIN1 (backwards?)
-    'bReverse': 3 // BIN2
+    'aForward': 4, // AIN1
+    'aReverse': 3, // AIN2
+    'bForward': 15, // BIN1
+    'bReverse': 17 // BIN2
   },
 
   pwmPins: {
-  'aSpeed': 17, // PWMA
-  'bSpeed': 2, // PWMB
+  'aSpeed': 2, // PWMA
+  'bSpeed': 18, // PWMB
   }
 };
